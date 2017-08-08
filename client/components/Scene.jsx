@@ -35,10 +35,9 @@ export default class Scene extends Component {
       green: 0,
     };
 
-    this.handleChaneBrightness = this.handleChaneBrightness.bind(this);
-    this.renderImage = this.renderImage.bind(this);
+    this.draw = this.draw.bind(this);
     this.filterGrayScale = this.filterGrayScale.bind(this);
-
+    this.handleChaneBrightness = this.handleChaneBrightness.bind(this);
     // this.filterBrightness = this.filterBrightness.bind(this);
   }
 
@@ -122,19 +121,6 @@ export default class Scene extends Component {
     img.src = imageURL;
   }
 
-  renderImage() {
-    let canvas = document.getElementById("scene");
-    let ctx = canvas.getContext('2d');
-
-    let img = new Image();
-    img.onload = function () {
-      canvas.width = 320;
-      canvas.height = 480;
-      ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, 320, 480);
-    }
-    img.src = imageURL;
-  }
-
   filterGrayScale() {
     var img = new Image();
     var canvas = document.getElementById("scene");
@@ -169,9 +155,7 @@ export default class Scene extends Component {
       }
       ctx.putImageData(imageData, 0, 0);
     }
-
     img.src = imageURL;
-
   }
 
   render () {
@@ -194,7 +178,7 @@ export default class Scene extends Component {
             <div style={{ fontFamily: 'Roboto, Arial', display: 'inline-block', lineHeight: '1.8em', position: 'absolute', top: 62 }}>{ this.state.brightness }</div>
           </div>
 
-          <RaisedButton onTouchTap={ this.renderImage } style={{ marginRight: 15 }} label="Render image on canvas" />
+          <RaisedButton onTouchTap={ this.draw } style={{ marginRight: 15 }} label="Render image on canvas" />
           <RaisedButton onTouchTap={ this.filterGrayScale } style={{ marginRight: 15 }} label="Add Grayscale to Image" primary={ true } />
         </div>
 
